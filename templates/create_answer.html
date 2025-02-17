@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  Variantlar qo'shish
+{% endblock title %}
+
+{% block content %}
+    <div class="card mt-5">
+        <div class="card-header">
+            <h3>Savol: {{question.question}}</h3>
+        </div>
+        <div class="card-body">
+            <form  method="post">
+                {% csrf_token %}
+                {{form|crispy}}
+                <div class="p-2">
+                    <input checked name="add-again" class="form-check-input" type="checkbox" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                       Yana variant qo'shish
+                    </label>
+                </div>
+                <div class="p-2">
+                    <button style="margin-left: 5px; height: 30px; font-size: small;" class="btn btn-primary " type="submit">Saqlash</button>
+                </div>
+                
+                   
+            </form>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2 mb-1">
+                        <a href="javascript:history.back()">
+                            <button style="height: 30px; font-size: small;" class="btn btn-secondary" type="submit">Orqaga</button>
+                        </a>
+                    </div>
+                    
+                    <div class="col-md-2 mb-1">
+                        <a href="{% url 'detail_test'  question.test.id%}">
+                            <button style="margin-right: 30px; height: 30px; font-size: small; padding: 5px;"  class=" btn btn-secondary" type="submit">Testga qaytish</button>
+                        </a>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+{% endblock content %}

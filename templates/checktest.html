@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}
+Test: {{checktest.test.title}}
+{% endblock title %}
+
+{% block content %}
+    <div class="card mt-5">
+        <div class="card-header">
+            <h3> Test nomi: {{checktest.test.title}} </h3>
+        </div>
+        <div class="card-body">
+            <h5>Natijangiz: {{checktest.percentage}} % </h5>
+            {% if checktest.is_passed %}
+                <h5> Ushbu testdan muvaffaqiyatli o'tdingiz!</h5>
+            {% else %}
+                <h5> Ushbu testdan o'ta olmadingiz</h5>
+                <p> Testdan o'tish uchun natijangiz kamida {{checktest.test.pass_percentage}}% bo'lishi kerak!</p>
+            {% endif %}
+
+            <hr>
+            {% for q in checkquestions  %}
+                {% if q.is_true %}
+                <div class="answer p-2" style="background-color: rgba(49, 156, 42, 0.379); border-radius: 5px;">
+                <h5> {{forloop.counter}}. {{q.question.question}}</h5>
+                <small><strong>Belgilangan javob: {{q.given_answer}} </strong> </small>
+                </div>
+                {% else %}
+                <div class="answer p-2" style="background-color: rgba(255, 41, 41, 0.472); border-radius: 5px;">
+                    <h5> {{forloop.counter}}. {{q.question.question}}</h5>
+                    <small><strong>Belgilangan javob: {{q.given_answer}} </strong> </small>
+                    
+                    
+                </div>
+                {% endif %}
+                <hr>
+            {% endfor %}
+        <a href="/" class="btn btn-warning" >Bosh menyuga</a>
+        <a href="{% url 'my_results' %}" class="btn btn-secondary" >Natijalarim</a>
+        </div>
+    </div>
+    <br><br>
+ 
+{% endblock content %}

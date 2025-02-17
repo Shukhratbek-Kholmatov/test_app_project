@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}
+    Profile - {{user.first_name}}
+{% endblock title %}
+
+{% block content %}
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card p-2">
+                <center>
+                    <img style="width: 200px; height:200px; border-radius:50%" class="img-rounded m-3" src="{{user.profile.picture.url}}" alt="">
+                    <h3> {{user.get_full_name}} </h3>   
+                </center>
+                <p class="text-muted" > {{user.email}}  </p>
+                <p>Bio: {{user.profile.bio}}</p>
+                <div class="card p-2">
+                    <h5> Yaratilgan testlar: {{number_of_tests}} </h5>
+                </div>
+                {% if user == request.user %}
+                    <a class="btn btn-warning mt-2" href="{% url 'update'  %}">Tahrirlash</a>
+                {% endif %}
+                
+            </div>
+        </div>
+    </div>
+                <div>     
+                      </ol>
+                      <a href="/" style="margin: 5px; height: 30px; font-size: small;" class="btn btn-dark" >Orqaga</a>
+                </div>
+                
+           
+{% endblock content %}

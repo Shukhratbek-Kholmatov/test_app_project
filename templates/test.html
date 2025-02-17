@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block title %}
+    Test yechish
+{% endblock title %}
+
+{% block content %}
+
+<style>
+    /* Timer uchun dizayn */
+    #fixed-timer {
+        position: fixed;
+        /* Sahifada qotadi */
+        top: 0;
+        left: 0;
+        width: 100%;
+        /* Ekranning kengligini egallaydi */
+        background-color: rgb(26, 115, 145);
+        /* Timer uchun fon rangi */
+        color: white;
+        /* Matn rangi */
+        text-align: center;
+        /* Matnni markazga olish */
+        padding: 10px 0;
+        /* Ichki bo‘shliq */
+        z-index: 1000;
+        /* Har doim yuqorida bo‘lishi uchun */
+        font-size: 18px;
+        /* Matn o‘lchami */
+    }
+
+    /* Timerning ostidagi kontent uchun bo'sh joy */
+    body {
+        padding-top: 50px;
+        /* Timer joylashuvi uchun joy */
+    }
+</style>
+<script>
+        
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        // Testning umumiy vaqti (sekundlarda)
+        const testTime = {{test.duration}}*60;
+        const timerElement = document.getElementById('timer');
+        let remainingTime = testTime;
+
+        // Timer funksiyasi
+        const interval = setInterval(() => {
+            if (remainingTime <= 0) {
+                clearInterval(interval); // Timer to‘xtaydi
+                // document.body.innerHTML = "<h4>{{test.title}} Vaqt tugadi!</h4>"; // Sahifani yangilash
+                document.getElementById('finish-form').submit();
+                return;
+            }
+
+            // Qolgan vaqtni formatlash (daqiqa:sekund)
+            const minutes = Math.floor(remainingTime / 60);
+            const seconds = remainingTime % 60;
+            timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            remainingTime--; // Sekundni kamaytirish
+        }, 1000); // Har 1 sekundda ishlaydi
+    });
+
+    
+
+
+</script>
+<div id="fixed-timer">
+    <b> Qolgan vaqt: <span id="timer"></span></b>
+
+</div>
+<!-- <div style="margin-left: 960px;">
+    <b> Qolgan vaqt:  <span id="timer"></span></b>
+
+</div> -->
+
+    <div class="card mt-3">
+        <div class="card-header">
+            <h4>Test nomi: {{test.title}}</h4>
+        </div>
+        <div class="card-body">
+            <form id="finish-form"  method="post">
+                {% csrf_token %}
+                {% for question,answer in qv_dict.items%}
+                <p> <b>{{forloop.counter}}. {{question.question}}</b>  </p>
+                {% for answ in answer%}
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name={{question.id}} value="{{answ.id}}" id="{{question.id}}_{{answ.id}}">
+                    <label class="form-check-label" for="{{question.id}}_{{answ.id}}">
+                        {{answ.answer}}
+                    </label>
+                </div>
+                {% endfor %}
+                
+                <hr>
+            {% endfor %}
+            <button style="height: 30px; font-size: small;"  type="submit" class="btn btn-primary" >Yakunlash</button>
+            </form>
+
+        </div>
+    </div>
+{% endblock content %}

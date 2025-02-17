@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  Savol qo'shish
+{% endblock title %}
+
+{% block content %}
+    <div class="card mt-5">
+        <div class="card-header">
+            <h3>Test nomi: {{test.title}}</h3>
+        </div>
+        <div class="card-body">
+            <form  method="post">
+                {% csrf_token %}
+                {{form|crispy}}
+                <div class="col mt-4">
+                  <button style="font-size: small;" class="btn btn-primary " type="submit">Saqlash</button>
+                </div>
+                
+            </form>
+            <div class="col mt-4">
+                <a href="{% url 'my_tests' %}">
+                    <button style="font-size: small;" class="btn btn-secondary" type="submit">Orqaga</button>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

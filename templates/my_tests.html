@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% block title %}
+Mening testlarim
+{% endblock title %}
+
+{% block content %}
+
+
+<style>
+    /* Example formatting */
+    .copy-text {
+        font-family: 'Sans-serif';
+        font-size: 18px;
+        color: #333;
+        background-color: #f4f4f4;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    button {
+        height: 30px;
+        border-radius: 5px;
+        margin-top: 10px;
+        padding: 5px 5px;
+        font-size: 12px;
+        cursor: pointer;
+    }
+</style>
+
+<div class="card mt-5">
+    <div class="card-header">
+        <h3>Mening testlarim</h3>
+    </div>
+    <div class="card-body">
+        <ol class="list-group list-group-numbered">
+            {% for test in tests %}
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">{{test.title}} | Test ID: {{test.id}}</div>
+                    <code class="copy-text">
+                    Test linki: <span id="text-to-copy">http://127.0.0.1:8000{% url 'test' test.id %}</span> 
+                    </code>
+
+                    <button onclick="copyFormattedText()">Nusxalash</button>
+               
+                    <div class="mt-4">
+                        <a class="btn btn-success bi bi-pencil" style="margin-right: 25px; height: 30px;padding: 6px; font-size: small;" href="{% url 'update_test' test.id %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325" />
+                            </svg>
+                            Tahrirlash </a>
+
+                       
+                        
+                        <a class="btn btn-secondary" style="height: 30px; margin-right: 15px; padding:5px; font-size: small;" href="{% url 'detail_test' test.id %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle"
+                                viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                <path
+                                    d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
+                            </svg>
+                           Savollar
+
+                        </a>
+                        <span class="badge bg-primary rounded-pill">{{test.questions.all.count}}</span>
+
+                        <a class="btn btn-warning" style="height: 30px; margin-right: 15px; margin-left: 15px; padding:5px; font-size: small;" href="{% url 'results' test.id %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle"
+                                viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                <path
+                                    d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
+                            </svg>
+                            Natijalar
+                        </a>
+                        
+                        
+                        <span class="badge bg-primary rounded-pill">{{test.checktests.all.count}}</span>
+                    </div>
+                    
+            </li>
+            {% endfor %}
+        </ol>
+    </div>
+</div>
+
+
+<script>
+    
+    async function copyFormattedText() {
+        const element = document.getElementById("text-to-copy");
+        try {
+            // Copy the inner HTML to clipboard
+            await navigator.clipboard.writeText(element.innerHTML);
+            alert("Link nusxalandi!");
+        } catch (err) {
+            alert("Failed to copy text.");
+        }
+        }
+</script>
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
