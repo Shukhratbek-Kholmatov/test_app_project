@@ -17,7 +17,7 @@ email_password = env("email_password")
 email_user = env("email_user")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['localhost','kholmatov.uz']
 
