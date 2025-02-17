@@ -15,11 +15,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env("SECRET_KEY")
 email_password = env("email_password")
 email_user = env("email_user")
-
+host=env("host")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost','kholmatov.uz']
+ALLOWED_HOSTS = ['localhost','kholmatov.uz',host]
 
 CSRF_TRUSTED_ORIGINS = [
     'https://kholmatov.uz'
