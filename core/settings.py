@@ -19,13 +19,13 @@ host=env("host")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["adminpanel.uz",host]
+ALLOWED_HOSTS = ["adminpanel.uz",host,'127.0.0.1']
 
 CSRF_TRUSTED_ORIGINS = [
     'https://adminpanel.uz'
 ]
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True  # Agar faqat HTTPS orqali ishlashni istasangiz
+SECURE_SSL_REDIRECT = True
 
 # Application definition
 

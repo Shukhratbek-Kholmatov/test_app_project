@@ -303,9 +303,8 @@ def test(request, test_id):
 @login_required(login_url='login')
 def check_test(request, checktest_id):
     checktest = CheckTest.objects.get(id=checktest_id)
-    checkquestions = CheckQuestion.objects.filter(checktest=checktest)
     if request.user == checktest.user:
-        return render(request, "checktest.html", {"checktest":checktest, "checkquestions":checkquestions})
+        return render(request, "checktest.html", {"checktest":checktest})
     else:
         raise Http404("Siz ushbu testni yechmagansiz")
     
