@@ -24,6 +24,8 @@ ALLOWED_HOSTS = ["adminpanel.uz",host]
 CSRF_TRUSTED_ORIGINS = [
     'https://adminpanel.uz'
 ]
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True  # Agar faqat HTTPS orqali ishlashni istasangiz
 
 # Application definition
 
