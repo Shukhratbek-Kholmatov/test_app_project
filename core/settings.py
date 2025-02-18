@@ -19,10 +19,10 @@ host=env("host")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost','kholmatov.uz',host]
+ALLOWED_HOSTS = ["adminpanel.uz",host]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://kholmatov.uz'
+    'https://adminpanel.uz'
 ]
 
 # Application definition
