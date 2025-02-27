@@ -11,7 +11,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env("SECRET_KEY")
 email_password = env("email_password")
 email_user = env("email_user")
@@ -51,6 +50,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 
+    'core.middleware.GlobalRateLimitMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -59,9 +59,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-# AUTHENTICATION_BACKENDS = [
-#     "djoser.auth_backends.LoginFieldBackend",
-# ]
+
 ROOT_URLCONF = 'core.urls'
 
 TEMPLATES = [
@@ -149,13 +147,21 @@ LOGOUT_REDIRECT_URL = "index"
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 15,
+    'PAGE_SIZE': 50,
 
     'DEFAULT_AUTHENTICATION_CLASSES': [
 
         'rest_framework_simplejwt.authentication.JWTAuthentication',
 
-    ]
+    ],
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '50/min',  # Ro'yxatdan o'tmagan foydalanuvchilar uchun 50 so‘rov/min
+        'user': '200/min',  # Kirgan foydalanuvchilar uchun 200 so‘rov/min
+    }
 }
 
 SIMPLE_JWT = {
